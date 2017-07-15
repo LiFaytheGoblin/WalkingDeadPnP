@@ -1,0 +1,89 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #fff;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+html {
+    font-size: 1em;
+    padding: 0;
+}
+
+header {
+    text-align: center;
+    background-image: url(header.JPG);
+    background-position: center center;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    color:#fff;
+    padding:5px 0 20px 0;
+}
+
+header > h1 {
+    padding: 20px;
+    border-bottom: 0.5px solid #fff;
+    display: inline-block;
+}
+
+h3 {
+    font-size: 95%;
+    font-weight: bold;
+}
+
+h4 {
+    font-size: 80%;
+}
+
+h5 {
+    font-size: 70%;
+}
+
+fieldset {
+    border: 0;
+    background-color:#fbfbfb;
+}
+
+input,
+select,
+textarea {
+    width: 200px;
+    font-size: inherit;
+    font-weight: inherit;
+    font-family: inherit;
+    color:#777;
+    border:0;
+    border-bottom: 1px dotted #999;
+    
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+}
+
+input[type="number"] {
+    width: 80px;
+}
+
+input[name*=Mod] {
+    width: 35px;
+    border-radius: 10px;
+    border: 1px solid #999;
+}
+
+input[readonly]:not([name*=Mod]), textarea[readonly] {
+    border:0;
+}
+
+textarea {
+    height: 100px;
+}
+
+.Feld {
+    vertical-align: top;
+    display: inline-block;
+    margin: 5px;
+}
