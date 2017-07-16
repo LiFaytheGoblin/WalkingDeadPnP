@@ -72,6 +72,7 @@ input[name*=Mod] {
     width: 35px;
     border-radius: 10px;
     border: 1px solid #999;
+    text-align: right;
 }
 
 input[readonly]:not([name*=Mod]), textarea[readonly] {
