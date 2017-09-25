@@ -30,14 +30,41 @@ fieldset {
 }
 
 div.Feld {
-  background-color: #23ffff;
-  width: 100%;
-  display: inline-block;
+  background-color: #ffddaa;
+  position: static;
+  box-shadow: 0 2px 4px 0 #ddaa77;
+  margin: 2%;
+  padding: 2%;
 }
 
-div.Row {
-  display: -webkit-flex;
-  display: flex;
+.r2, .r3, .r4, .r5, .r6, .r8 {
+  display: grid;
+  flex-direction: row;
+  align-items: center;
+}
+
+div.r2 {
+  grid-template-columns: repeat(auto-fill, 50%);
+}
+
+div.r3 {
+  grid-template-columns: repeat(auto-fill, 33%);
+}
+
+div.r4 {
+  grid-template-columns: repeat(auto-fill, 25%);
+}
+
+div.r5 {
+  grid-template-columns: repeat(auto-fill, 20%);
+}
+
+div.r6 {
+  grid-template-columns: repeat(auto-fill, 16.6%);
+}
+
+div.r8 {
+  grid-template-columns: repeat(auto-fill, 12.5%);
 }
 
 input,
