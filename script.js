@@ -1,20 +1,30 @@
 'use strict';
 
 window.onload = function () {
-    //updateScreen();
     updateValues();
     updateScreen();
+    //createListeners();
 };
 
 function updateValues() {
     clearValues();
-    window.HintergrundAuswahl[Hintergrund].setVars();
-    window.KlasseAuswahl[Klasse].setVars();
-    window.Vorteile.setVars();
-    window.Nachteile.setVars();
+    HintergrundAuswahl[Hintergrund].setVars();
+    KlasseAuswahl[Klasse].setVars();
+    Vorteile.setVars();
+    Nachteile.setVars();
+    calculateAbilityScoreMods();
+    calculateSkills();
 }
 
 function updateScreen() {
+    updateDropdownFromArrayOfStrings("Klassen");
+    updateDropdownFromArrayOfStrings("Hintergruende");
+    updateDropdownFromArrayOfStrings("Raenge");
+    updateDropdownFromArrayOfStrings("HierarchischAlignments");
+    updateDropdownFromArrayOfStrings("SozialAlignments");
+    updateDropdownFromArrayOfStrings("MoralAlignments");
+    updateDropdownFromArrayOfStrings("Haende");
+
     updateScreenValue("Speed");
     updateScreenValue("Vorteil");
     updateScreenValue("Advantage");
@@ -38,19 +48,28 @@ function updateScreen() {
     updateScreenValueFromArrayOfStrings("Item");
     updateScreenValueFromArrayOfStrings("Zusatzfaehigkeiten");
 
-    updateDropdownFromArrayOfStrings("Raenge");
-    
-    updateDropdownFromArrayOfStrings("Klassen");
-    updateDropdownFromArrayOfStrings("Hintergruende");
-    updateDropdownFromArrayOfStrings("HierarchischAlignments");
-    updateDropdownFromArrayOfStrings("SozialAlignments");
-    updateDropdownFromArrayOfStrings("MoralAlignments");
-    updateDropdownFromArrayOfStrings("Haende");
+    updateAbilityScores();
+    updateSkills();
 
-    //update ability scores info out of array, 2 elems
+}
 
-    //update skills info out of array
-    
+function createListeners() {
+    var fields = document.getElementsByTagName("input");
+
+    for (var i = 0; i < fields.length; i++) {fields[i].addEventListener("keydown",updateAll(Event));
+    }
+}
+
+function updateAll(e) {
+    console.log(e);
+    readNewValue(e);
+    updateValues();
+    updateScreen();
+}
+
+function readNewValue(e) {
+    //read this value
+
 }
 
 function clearValues() {
@@ -78,11 +97,13 @@ function updateScreenValueFromArrayOfStrings(val) {
 
 function updateDropdownFromArrayOfStrings(val) {
     var src = window[val][0];
+
     if (src.length === 0) return;
     var r = [];
     var s = "";
     for (var i = 0; i < src.length; i++) {
-        if(src[i] === window[val][1]) s = " selected";
+        //why is windows[val][1] undefined for hintergrund and klasse
+        if (src[i] === window[val][1]) s = " selected";
         else s = "";
         if (r.length === 0) {
             r[0] = ["<option value=" +
@@ -102,6 +123,36 @@ function updateDropdownFromArrayOfStrings(val) {
     r = r.join('');
     document.getElementById(val).value = window[val][1];
     document.getElementById(val).innerHTML = r;
+}
+
+function updateAbilityScores() {
+    for(var key in AbilityScores) {
+        document.getElementById(key).value = AbilityScores[key][0];
+
+        document.getElementById(key + "Mod").value = AbilityScores[key][1];
+    }
+}
+
+function calculateAbilityScoreMods() {
+    for(var key in AbilityScores) {
+        var score = AbilityScores[key][0];
+        AbilityScores[key][1] = Math.floor((score - 10) / 2);
+    }
+    PassiveWisdom = AbilityScores.wisdom[0] + ProficiencyBonus;
+}
+
+function updateSkills() {
+    for(var key in Skill) {
+        document.getElementById(key).value = Skill[key];
+    }
+}
+
+function calculateSkills() {
+    for(var ability in Skills) {
+        for(var skill in Skills[ability]) {
+            Skill[Skills[ability][skill]] += AbilityScores[ability][1];
+        }
+    }
 }
 
 function roll(range) {
@@ -138,11 +189,23 @@ function m() {
     else return "boese";
 }
 
+function hi() {
+    var r = roll(Hintergruende[0].length-1);
+    return Hintergruende[0][r];
+}
+
+function kl() {
+    var r = roll(Klassen[0].length-1);
+    return Klassen[0][r];
+}
+
 var r = null, //random factor
     Name = "",
     Alter = "",
     Hand = "rechtshaendig",
     Speed = 30,
+
+    Rang = "Keine Spezialisierung",
 
     MoralAlignment = m(),
     SozialAlignment = s(),
@@ -206,10 +269,6 @@ var r = null, //random factor
     Advantage = "-",
     Disadvantage = "-",
 
-    Hintergrund = "Army",
-    Klasse = "Heiler",
-    Rang = "Kein Rang",
-
     //AUSWAHL
     Haende = [["linkshaendig", "rechtshaendig"], Hand],
 
@@ -225,20 +284,27 @@ var r = null, //random factor
     Skills = {
         charisma: ["deception", "intimidation", "performance", "persuasion"],
         constitution: [],
-        dexterity: ["acrobatics", "sleight of hand", "stealth"],
-        intelligence: ["history", "investigation", "nature", "religion"],
+        dexterity: ["acrobatics", "sleightOfHand", "stealth"],
+        intelligence: ["investigation", "nature", "religion"],
         strength: ["athletics"],
         wisdom: ["insight", "medicine", "perception", "survival"]
     },
 
-    Hintergruende = [["Army", "Einwanderer", "Geistlicher", "Gesetzeshueter", "Hillbilly", "Intellektueller", "vermoegend"],
-    Hintergrund],
+    Hintergruende = [["Army", "Einwanderer", "Geistlicher", "Gesetzeshueter", "Hillbilly", "Intellektueller", "vermoegend"],""],
 
     Klassen = [["Fuehrungspersoenlichkeit", "Heiler", "Kaempfer", "Prediger", "Schuetze", "Techniker"],
-    Klasse],
+    ""],
 
-    Raenge = [[],
+    Hintergrund = hi(),
+    Klasse = kl();
+
+    Klassen[1] = Klasse;
+    Hintergruende[1] = Hintergrund;
+
+    var Raenge = [[],
     Rang],
+
+
 
     HintergrundAuswahl = {
         Army: {
@@ -305,7 +371,7 @@ var r = null, //random factor
                 Sprache = "Englisch";
                 var r = roll(4);
                 if (r < 3) Item[Item.length] = "Zusaetzliche Munition";
-                else  Item[Item.length] = "Schusssichere Weste";
+                else Item[Item.length] = "Schusssichere Weste";
                 r = roll(2);
                 if (r < 2) Waffe[0] = "Pistole";
                 else Waffe[0] = "Schrotflinte";
