@@ -39,7 +39,7 @@ div.Feld {
   background-color: #ffeecc;
   position: static;
   box-shadow: 0 2px 4px 0 #eeddaa;
-  margin: 2%;
+  margin: 5px;
   padding: 2%;
 }
 
@@ -47,6 +47,7 @@ div.Feld {
   display: grid;
   flex-direction: row;
   align-items: center;
+  height: 100%;
 }
 
 div.r2 {
@@ -97,17 +98,15 @@ input[type="number"] {
 }
 
 input[name*=Mod] {
-<<<<<<< HEAD
-    width: 35px;
-    border-radius: 10px;
-    border: 1px solid #999;
-    text-align: right;
-=======
     width:1.4em;
-    height:1.4em;
-    border-radius: 50%;
-    border: 1px solid #998877;
->>>>>>> master
+    line-height: 1.4em;
+    border-radius: 0.7em;
+    -moz-border-radius: 0.7em;
+    -webkit-border-radius: 0.7em;
+    border: 1px solid rgba(15, 13, 11, .99);
+    text-align:center;
+    overflow: hidden;
+    padding: 0;
 }
 
 input[readonly]:not([name*=Mod]), textarea[readonly] {
