@@ -10,38 +10,60 @@
 
 <body>
     <header>
-        <h1>P&P: THE WALKING DEAD</h1>
+        <h1>P&amp;P: THE WALKING DEAD</h1>
         <h2>Character Sheet</h2>
     </header>
     <section id="Sheet">
         <form name="sheet">
             <fieldset class="persoenlich">
-                <div class="Feld">
-                    <h3>Name</h3>
-                    <input id="Name" type="text" name="Name" placeholder="" value="" autocomplete="on" autofocus />
+                <div class="r4">
+                  <div class="Feld">
+                      <h3>Name</h3>
+                      <input id="Name" type="text" name="Name" placeholder="" value="" autocomplete="on" autofocus />
+                  </div>
+
+                  <div class="Feld">
+                      <h3>Alter</h3>
+                      <input id="Alter" type="number" name="Alter" placeholder="" value="" autocomplete="on" autofocus />
+                  </div>
+
+                  <div class="Feld">
+                      <h3>Hand</h3>
+                      <select id="Haende">
+                      </select>
+                  </div>
+
+                  <div class="Feld">
+                      <h3>Speed</h3>
+                      <input id="Speed" type="number" name="Speed" placeholder="" value="" autocomplete="on" readonly/>
+                  </div>
+              </div>
+        <!--  </fieldset>
+          <fieldset class="herkunft">-->
+              <div class="r3">
+                  <div class="Feld">
+                      <h3>Hintergrund</h3>
+                      <select id="Hintergruende">
+                      </select>
+                  </div>
+
+                  <div class="Feld">
+                      <h3>Klasse</h3>
+                      <select id="Klassen">
+                      </select>
+                  </div>
+
+                  <div class="Feld">
+                      <h3>Rang</h3>
+                      <select id="Raenge">
+                          <option value="default">Kein Rang</option>
+                      </select>
+                  </div>
                 </div>
-
-                <div class="Feld">
-                    <h3>Alter</h3>
-                    <input id="Alter" type="number" name="Alter" placeholder="" value="" autocomplete="on" autofocus />
-                </div>
-
-                <div class="Feld">
-                    <h3>Hand</h3>
-                    <select id="Haende">
-                    </select>
-                </div>
-
-                <div class="Feld">
-                    <h3>Speed</h3>
-                    <input id="Speed" type="number" name="Speed" placeholder="" value="" autocomplete="on" readonly/>
-                </div>
-
-                <br />
-
-                <div class="Feld, inRow">
-                    <h3>Alignment</h3>
-
+              </fieldset>
+          <fieldset class="alignment">
+              <h3>Alignment</h3>
+               <div class="r3">
                     <div class="Feld">
                         <h4>Moralisch</h4>
                         <select id="MoralAlignments">
@@ -55,41 +77,17 @@
                     </div>
 
                     <div class="Feld">
-                    
                         <h4>Hierarchisch</h4>
                         <select id="HierarchischAlignments">
                         </select>
                     </div>
                 </div>
+        </fieldset>
 
-                <br />
-
-                <div class="Feld">
-                    <h3>Hintergrund</h3>
-                    <select id="Hintergruende">
-                    </select>
-                </div>
-
-                <div class="Feld">
-                    <h3>Klasse</h3>
-                    <select id="Klassen">
-                    </select>
-                </div>
-
-                <div class="Raenge">
-                    <h3>Rang</h3>
-                    <select id="Raenge">
-                        <option value="default">Kein Rang</option>
-                    </select>
-                </div>
-
-                <br />
-
-                <div class="Feld">
-                    <h3>Eigenschaften</h3>
-
-                    <div class="Feld, inRow">
-                        <h4>Vorteil</h4>
+              <fieldset class="positiveEigenschaften">
+                <h3>Eigenschaften</h3>
+                    <h4>Vorteil</h4>
+                    <div class="r2">
                         <div class="Feld">
                             <h5>Vorteilige Eigenschaft</h5>
                             <input id="Vorteil" type="text" name="Vorteil" placeholder="" value="" readonly/>
@@ -99,9 +97,11 @@
                             <input id="Advantage" type="text" name="Advantage" placeholder="" value="" readonly/>
                         </div>
                     </div>
+              </fieldset>
 
-                    <div class="Feld, inRow">
-                        <h4>Nachteil</h4>
+              <fieldset class="negativeEigenschaften">
+                    <h4>Nachteil</h4>
+                    <div class="r2">
                         <div class="Feld">
                             <h5>Vorteilige Eigenschaft</h5>
                             <input id="Nachteil" type="text" name="Nachteil" placeholder="" value="" readonly/>
@@ -111,13 +111,11 @@
                             <input id="Disadvantage" type="text" name="Disadvantage" placeholder="" value="" readonly/>
                         </div>
                     </div>
-                </div>
             </fieldset>
 
             <fieldset class="gesundheit">
-                <div class="Feld, inRow">
-                    <h3>Allgemeine Gesundheit</h3>
-
+                <h3>Allgemeine Gesundheit</h3>
+                <div class="r2">
                     <div class="Feld">
                         <h4>Moral</h4>
                         <input id="Moral" type="number" name="moral" placeholder="" value="" readonly/> / <input id="MaximaleMoral" type="number" name="MaximaleMoral" placeholder="" value="" readonly/>
@@ -129,9 +127,8 @@
                     </div>
                 </div>
 
-                <div class="Feld, inRow">
-                    <h3>Resistance</h3>
-
+                <h3>Resistance</h3>
+                <div class="r2">
                     <div class="Feld">
                         <h4>Physical Resistance</h4>
                         <input id="PhysicalResistance" type="number" name="PhysicalResistance" placeholder="" value="" readonly/>
@@ -143,15 +140,12 @@
                     </div>
                 </div>
 
-                <div class="Feld, inRow">
-                    <h3>Bedürfnisse</h3>
-
+                <h3>Bedürfnisse</h3>
+                <div class="r2">
                     <div class="Feld">
                         <h4>Hunger</h4>
                         <input id="Hunger" type="number" name="Hunger" placeholder="" value="" autocomplete="on" readonly/> / <input id="MaximalerHunger" type="number" name="MaximalerHunger" placeholder="" value="" autocomplete="on" readonly/>
                     </div>
-
-
                     <div class="Feld">
                         <h4>Durst</h4>
                         <input id="Durst" type="number" name="Durst" placeholder="" value="" readonly/> / <input id="MaximalerDurst" type="number" name="MaximalerDurst" placeholder="" value="" readonly/>
@@ -160,6 +154,7 @@
             </fieldset>
 
             <fieldset>
+              <div class="r2">
                 <div class="Feld">
                     <h3>Proficiency Bonus</h3>
                     <input id="ProficiencyBonus" type="number" name="ProficiencyBonus" placeholder="" value="" autocomplete="on" readonly/>
@@ -169,10 +164,11 @@
                     <h3>Passive Wisdom</h3>
                     <input id="PassiveWisdom" type="number" name="passiveWisdom" placeholder="" value="" autocomplete="on" readonly/>
                 </div>
-
-                <div class="Feld, inRow">
-                    <h3>Ability Scores</h3>
-
+              </div>
+            </fieldset>
+            <fieldset>
+                <h3>Ability Scores</h3>
+                <div class="r6">
                     <div class="Feld">
                         <h4>Charisma</h4>
                         <input id="charisma" type="number" name="charisma" placeholder="" value="" autocomplete="on" autofocus />
@@ -209,9 +205,11 @@
                         <input id="wisdomMod" type="number" name="wisdomMod" placeholder="" value="" autocomplete="on" readonly/>
                     </div>
                 </div>
+              </fieldset>
+              <fieldset>
 
-                <div class="Feld, inRow">
-                    <h3>Skills</h3>
+                <h3>Skills</h3>
+                <div class="r5">
 
                     <div class="Feld">
                         <h4>Acrobatics</h4>
@@ -288,19 +286,23 @@
                         <input id="survival" type="number" name="survival" placeholder="" value="" autocomplete="on" readonly/>
                     </div>
                 </div>
-                <div class="Feld">
-                    <h3>Sprachen</h3>
-                    <textarea id="Sprache" name="Sprache" placeholder="" readonly></textarea>
-                </div>
-                <div class="Feld">
-                    <h3>Zusatzfähigkeiten</h3>
-                    <textarea id="Zusatzfaehigkeiten" name="Zusatzfaehigkeiten" placeholder="" readonly></textarea>
-                </div>
+              </fieldset>
+              <fieldset class="Faehigkeiten">
+                <div class="r2">
+                  <div class="Feld">
+                      <h3>Sprachen</h3>
+                      <textarea id="Sprache" name="Sprache" placeholder="" readonly></textarea>
+                  </div>
+                  <div class="Feld">
+                      <h3>Zusatzfähigkeiten</h3>
+                      <textarea id="Zusatzfaehigkeiten" name="Zusatzfaehigkeiten" placeholder="" readonly></textarea>
+                  </div>
+              </div>
             </fieldset>
 
             <fieldset>
-                <div clas="Feld">
-                    <h3>Ausstattung</h3>
+                <h3>Ausstattung</h3>
+                <div class="r2">
 
                     <div class="Feld">
                         <h4>Waffen</h4>
