@@ -10,8 +10,8 @@
 
 <body>
     <header>
-        <h1>P&amp;P: THE WALKING DEAD</h1>
-        <h2>Character Sheet</h2>
+        <h1>THE WALKING DEAD P&amp;P</h1>
+        <h2>Character Sheet Creator</h2>
     </header>
     <section id="Sheet">
         <form name="sheet">
@@ -84,35 +84,6 @@
                 </div>
         </fieldset>
 
-              <fieldset class="positiveEigenschaften">
-                <h3>Eigenschaften</h3>
-                    <h4>Vorteil</h4>
-                    <div class="r2">
-                        <div class="Feld">
-                            <h5>Vorteilige Eigenschaft</h5>
-                            <input id="Vorteil" type="text" name="Vorteil" placeholder="" value="" readonly/>
-                        </div>
-                        <div class="Feld">
-                            <h5>Dauerhafte Advantage</h5>
-                            <input id="Advantage" type="text" name="Advantage" placeholder="" value="" readonly/>
-                        </div>
-                    </div>
-              </fieldset>
-
-              <fieldset class="negativeEigenschaften">
-                    <h4>Nachteil</h4>
-                    <div class="r2">
-                        <div class="Feld">
-                            <h5>Vorteilige Eigenschaft</h5>
-                            <input id="Nachteil" type="text" name="Nachteil" placeholder="" value="" readonly/>
-                        </div>
-                        <div class="Feld">
-                            <h5>Dauerhafte Disadvantage</h5>
-                            <input id="Disadvantage" type="text" name="Disadvantage" placeholder="" value="" readonly/>
-                        </div>
-                    </div>
-            </fieldset>
-
             <fieldset class="gesundheit">
                 <h3>Gesundheit</h3>
                 <div class="r2">
@@ -165,7 +136,7 @@
                 </div>
               </div>
             </fieldset>
-            <fieldset>
+            <fieldset class="abilities">
                 <h3>Ability Scores</h3>
                 <div class="r6">
                     <div class="Feld">
@@ -287,14 +258,35 @@
                 </div>
               </fieldset>
               <fieldset class="Faehigkeiten">
+                <h3>Eigenschaften</h3>
+                    <div class="r2">
+                          <div class="Feld">
+                              <h4>Vorteilige Eigenschaft</h4>
+                              <input id="Vorteil" type="text" name="Vorteil" placeholder="" value="" readonly/>
+                          </div>
+                          <div class="Feld">
+                              <h4>Dauerhafte Advantage</h4>
+                              <input id="Advantage" type="text" name="Advantage" placeholder="" value="" readonly/>
+                          </div>
+                      </div>
+                <div class="r2">
+                          <div class="Feld">
+                              <h4>Vorteilige Eigenschaft</h4>
+                              <input id="Nachteil" type="text" name="Nachteil" placeholder="" value="" readonly/>
+                          </div>
+                          <div class="Feld">
+                              <h4>Dauerhafte Disadvantage</h4>
+                              <input id="Disadvantage" type="text" name="Disadvantage" placeholder="" value="" readonly/>
+                          </div>
+                    </div>
                 <div class="r2">
                   <div class="Feld">
-                      <h3>Sprachen</h3>
-                      <textarea id="Sprache" name="Sprache" placeholder="" readonly></textarea>
+                      <h4>Sprachen</h4>
+                      <textarea id="Sprache" name="Sprache" placeholder="" rows="6" readonly></textarea>
                   </div>
                   <div class="Feld">
-                      <h3>Zusatzfähigkeiten</h3>
-                      <textarea id="Zusatzfaehigkeiten" name="Zusatzfaehigkeiten" placeholder="" readonly></textarea>
+                      <h4>Zusatzfähigkeiten</h4>
+                      <textarea id="Zusatzfaehigkeiten" name="Zusatzfaehigkeiten" placeholder="" rows="6" readonly></textarea>
                   </div>
               </div>
             </fieldset>
@@ -318,6 +310,9 @@
 
         </form>
     </section>
+    <footer>
+      Hosted on GitHub, 2017
+    </footer>
 </body>
 
 </html>
