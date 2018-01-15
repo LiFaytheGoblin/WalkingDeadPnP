@@ -17,37 +17,35 @@ function updateValues() {
 }
 
 function updateScreen() {
-    updateDropdownFromArrayOfStrings("Klassen");
-    updateDropdownFromArrayOfStrings("Hintergruende");
-    updateDropdownFromArrayOfStrings("Raenge");
-    updateDropdownFromArrayOfStrings("HierarchischAlignments");
-    updateDropdownFromArrayOfStrings("SozialAlignments");
-    updateDropdownFromArrayOfStrings("MoralAlignments");
-    updateDropdownFromArrayOfStrings("Haende");
-    
-    updateScreenValue("Speed");
-    updateScreenValue("Vorteil");
-    updateScreenValue("Advantage");
-    updateScreenValue("Nachteil");
-    updateScreenValue("Disadvantage");
-    updateScreenValue("Moral");
-    updateScreenValue("MaximaleMoral");
-    updateScreenValue("Gesundheit");
-    updateScreenValue("MaximaleGesundheit");
-    updateScreenValue("PhysicalResistance");
-    updateScreenValue("MentalResistance");
-    updateScreenValue("Hunger");
-    updateScreenValue("MaximalerHunger");
-    updateScreenValue("Durst");
-    updateScreenValue("MaximalerDurst");
-    updateScreenValue("ProficiencyBonus");
-    updateScreenValue("PassiveWisdom");
-    updateScreenValue("Sprache");
 
-    updateScreenValueFromArrayOfStrings("Waffe");
-    updateScreenValueFromArrayOfStrings("Item");
-    updateScreenValueFromArrayOfStrings("Zusatzfaehigkeiten");
-    
+  var dropdownsToUpdateFromArrayOfStrings = [
+    "Klassen", "Hintergruende", "Raenge", "HierarchischAlignments",
+    "SozialAlignments", "MoralAlignments", "Haende"
+  ];
+
+  var screenValuesToUpdate = [
+    "Speed", "Vorteil", "Advantage", "Nachteil", "Disadvantage", "Moral", "MaximaleMoral",
+    "Gesundheit", "MaximaleGesundheit", "PhysicalResistance", "MentalResistance",
+    "Hunger", "MaximalerHunger", "Durst", "MaximalerDurst", "ProficiencyBonus",
+    "PassiveWisdom", "Sprache"
+  ];
+
+  var screenValuesToUpdateFromArrayOfStrings = [
+    "Waffe", "Item", "Zusatzfaehigkeiten"
+  ];
+
+  for (var dropdownNo in dropdownsToUpdateFromArrayOfStrings) {
+    updateDropdownFromArrayOfStrings(dropdownsToUpdateFromArrayOfStrings[dropdownNo]);
+  }
+
+  for (var valueNo in screenValuesToUpdate) {
+    updateScreenValue(screenValuesToUpdate[valueNo]);
+  }
+
+  for (var valueNo in screenValuesToUpdateFromArrayOfStrings) {
+    updateScreenValueFromArrayOfStrings(screenValuesToUpdateFromArrayOfStrings[valueNo]);
+  }
+
     updateAbilityScores();
     updateSkills();
 
@@ -55,7 +53,7 @@ function updateScreen() {
 
 function createListeners() {
     var fields = document.getElementsByTagName("input");
-    
+
     for (var i = 0; i < fields.length; i++) {fields[i].addEventListener("keydown",updateAll(Event));
     }
 }
@@ -69,7 +67,7 @@ function updateAll(e) {
 
 function readNewValue(e) {
     //read this value
-    
+
 }
 
 function clearValues() {
@@ -97,7 +95,7 @@ function updateScreenValueFromArrayOfStrings(val) {
 
 function updateDropdownFromArrayOfStrings(val) {
     var src = window[val][0];
-    
+
     if (src.length === 0) return;
     var r = [];
     var s = "";
@@ -128,7 +126,7 @@ function updateDropdownFromArrayOfStrings(val) {
 function updateAbilityScores() {
     for(var key in AbilityScores) {
         document.getElementById(key).value = AbilityScores[key][0];
-        
+
         document.getElementById(key + "Mod").value = AbilityScores[key][1];
     }
 }
@@ -204,7 +202,7 @@ var r = null, //random factor
     Alter = "",
     Hand = "rechtshaendig",
     Speed = 30,
-    
+
     Rang = "Keine Spezialisierung",
 
     MoralAlignment = m(),
@@ -291,19 +289,19 @@ var r = null, //random factor
     },
 
     Hintergruende = [["Army", "Einwanderer", "Geistlicher", "Gesetzeshueter", "Hillbilly", "Intellektueller", "vermoegend"],""],
-                     
+
     Klassen = [["Fuehrungspersoenlichkeit", "Heiler", "Kaempfer", "Prediger", "Schuetze", "Techniker"],
     ""],
 
     Hintergrund = hi(),
     Klasse = kl();
-                     
+
     Klassen[1] = Klasse;
     Hintergruende[1] = Hintergrund;
 
     var Raenge = [[],
     Rang],
-    
+
 
 
     HintergrundAuswahl = {
@@ -572,4 +570,3 @@ var r = null, //random factor
         },
         Eigenschaften: ["Kind", "Alt", "Waffenphob", "Nichtschwimmer", "Langsam", "Kann nicht autofahren", "Analphabet", "Mangelerscheinungen", "Junkie", "Rassist", "Kleptomane", "Pessimist"]
     };
-
