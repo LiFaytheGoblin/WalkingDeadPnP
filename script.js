@@ -1,12 +1,22 @@
 'use strict';
 
 window.onload = function () {
-    updateValues();
+    setValues();
     updateScreen();
     //createListeners();
+    
+    /* example for a listener
+    var s = document.getElementById("x");
+    s.addEventListener("change", function() {
+        x = s.value;
+        console.log(x);
+    }, false);
+    */
 };
 
-function updateValues() {
+var x = "one";
+
+function setValues() {
     clearValues();
     HintergrundAuswahl[Hintergrund].setVars();
     KlasseAuswahl[Klasse].setVars();
@@ -42,8 +52,8 @@ function updateScreen() {
     updateScreenValue(screenValuesToUpdate[valueNo]);
   }
 
-  for (var valueNo in screenValuesToUpdateFromArrayOfStrings) {
-    updateScreenValueFromArrayOfStrings(screenValuesToUpdateFromArrayOfStrings[valueNo]);
+  for (var valueFromArrayNo in screenValuesToUpdateFromArrayOfStrings) {
+    updateScreenValueFromArrayOfStrings(screenValuesToUpdateFromArrayOfStrings[valueFromArrayNo]);
   }
 
     updateAbilityScores();
@@ -52,20 +62,20 @@ function updateScreen() {
 }
 
 function createListeners() {
-    var fields = document.getElementsByTagName("input");
-
-    for (var i = 0; i < fields.length; i++) {fields[i].addEventListener("keydown",updateAll(Event));
+    var fields = document.getElementsByTagName("select");
+    for (var i = 0; i < fields.length; i++) {
+        fields[i].addEventListener("change",updateAll(Event));
     }
 }
 
 function updateAll(e) {
     console.log(e);
-    readNewValue(e);
-    updateValues();
+    safeNewValue(e);
+    setValues();
     updateScreen();
 }
 
-function readNewValue(e) {
+function safeNewValue(e) {
     //read this value
 
 }
@@ -95,38 +105,18 @@ function updateScreenValueFromArrayOfStrings(val) {
 
 function updateDropdownFromArrayOfStrings(val) {
     var src = window[val][0];
-
     if (src.length === 0) return;
-    var r = [];
-    var s = "";
+    var elem = document.getElementById(val);
     for (var i = 0; i < src.length; i++) {
-        //why is windows[val][1] undefined for hintergrund and klasse
-        if (src[i] === window[val][1]) s = " selected";
-        else s = "";
-        if (r.length === 0) {
-            r[0] = ["<option value=" +
-                 src[i] + s +
-                 ">" +
-                 src[i] +
-                 "</option>"];
-        } else {
-            r[0] = r +
-                "<option value=" +
-                src[i] + s +
-                ">" +
-                src[i] +
-                "</option>";
-        }
+        elem[i] = new Option(src[i]);
+        if (src[i] === window[val][1]) elem[i].selected = true;
     }
-    r = r.join('');
-    document.getElementById(val).value = window[val][1];
-    document.getElementById(val).innerHTML = r;
+   elem.value = window[val][1];
 }
 
 function updateAbilityScores() {
     for(var key in AbilityScores) {
         document.getElementById(key).value = AbilityScores[key][0];
-
         document.getElementById(key + "Mod").value = AbilityScores[key][1];
     }
 }
@@ -421,55 +411,61 @@ var r = null, //random factor
     },
 
     KlasseAuswahl = {
+        setFaehigkeiten: function(dieseKlasse) {
+            for (var faehigkeit in dieseKlasse) {
+                    Zusatzfaehigkeiten[Zusatzfaehigkeiten.length] = dieseKlasse[faehigkeit];
+            }
+        },
+        
         Heiler: {
             setVars: function () {
-                Zusatzfaehigkeiten[Zusatzfaehigkeiten.length] = "Wundversorgung: +1d10 % Lebensenergie, max 3x/Tag";
-                Zusatzfaehigkeiten[Zusatzfaehigkeiten.length] = "Notoperation: Erg(1d20)>17: tödliche Verletzung wird zu schwerer Verletzung";
+                KlasseAuswahl.setFaehigkeiten(this);
                 PhysicalResistance += 4;
                 MentalResistance += 4;
                 Skill.medicine += 2;
-            }
+            },
+            Faehigkeiten: ["Wundversorgung: +1d10 % Lebensenergie, max 3x/Tag", "Notoperation: Erg(1d20)>17: tödliche Verletzung wird zu schwerer Verletzung"]
         },
 
         Prediger: {
             setVars: function () {
-                Zusatzfaehigkeiten[Zusatzfaehigkeiten.length] = "Motivation: +1d4 Moral aller, max 1x/Tag";
+                KlasseAuswahl.setFaehigkeiten(this);
                 PhysicalResistance += 3;
                 MentalResistance += 6;
                 Skill.persuasion += 2;
-            }
+            },
+            Faehigkeiten: ["Motivation: +1d4 Moral aller, max 1x/Tag"]
         },
 
         Fuehrungspersoenlichkeit: {
             setVars: function () {
-                Zusatzfaehigkeiten[Zusatzfaehigkeiten.length] = "Doppelte Stimme bei Abstimmung";
-                Zusatzfaehigkeiten[Zusatzfaehigkeiten.length] = "Entscheidungen verändern Mental Resistance nicht";
+                KlasseAuswahl.setFaehigkeiten(this);
                 PhysicalResistance += 4;
                 MentalResistance += 6;
-            }
+            },
+            Faehigkeiten: ["Doppelte Stimme bei Abstimmung", "Entscheidungen verändern Mental Resistance nicht"]
         },
 
         Kaempfer: {
             setVars: function () {
-                Zusatzfaehigkeiten[Zusatzfaehigkeiten.length] = "Melee Attack +2";
-                Zusatzfaehigkeiten[Zusatzfaehigkeiten.length] = "Range Attack -2";
+                KlasseAuswahl.setFaehigkeiten(this);
                 PhysicalResistance += 4;
                 MentalResistance += 6;
                 if (this.Skill === "acrobatics") Skill.acrobatics += 2;
                 else Skill.athletics += 2;
             },
             Skill: "acrobatics",
-            Skills: ["acrobatics, athletics"]
+            Skills: ["acrobatics, athletics"],
+            Faehigkeiten: ["Melee Attack +2", "Range Attack -2"]
         },
 
         Schuetze: {
             setVars: function () {
-                Zusatzfaehigkeiten[Zusatzfaehigkeiten.length] = "Melee Attack -2";
-                Zusatzfaehigkeiten[Zusatzfaehigkeiten.length] = "Range Attack +2";
-                Zusatzfaehigkeiten[Zusatzfaehigkeiten.length] = "Nat. Hit auch bei Erg(1d20)=19";
+                KlasseAuswahl.setFaehigkeiten(this);
                 PhysicalResistance += 6;
                 MentalResistance += 3;
-            }
+            },
+            Faehigkeiten: ["Melee Attack -2", "Range Attack +2", "Nat. Hit auch bei Erg(1d20)=19"]
         },
 
         Techniker: {
@@ -480,8 +476,8 @@ var r = null, //random factor
                 Rang = this.Rang;
                 Raenge[0] = this.Raenge;
                 Raenge[1] = Rang;
-                Zusatzfaehigkeiten[Zusatzfaehigkeiten.length] = "Technisches Wissen: +2 intelligence bei technischen Fragen";
-                Zusatzfaehigkeiten[Zusatzfaehigkeiten.length] = "Reparatur: (Erg(1d6) > (7 - Tag)) = repariert, (Erg(1d4) = 1) = irreparabel, beides 1x/Tag";
+                KlasseAuswahl.setFaehigkeiten(this);
+                
                 if (this.Rang === "Schwermechaniker") {
                     PhysicalResistance += 5;
                     MentalResistance += 4;
@@ -493,7 +489,8 @@ var r = null, //random factor
                 Skill.sleightOfHand += 2;
             },
             Rang: "Feinmechaniker",
-            Raenge: ["Schwermechaniker", "Feinmechaniker"]
+            Raenge: ["Schwermechaniker", "Feinmechaniker"],
+            Faehigkeiten: ["Technisches Wissen: +2 intelligence bei technischen Fragen", "Reparatur: (Erg(1d6) > (7 - Tag)) = repariert, (Erg(1d4) = 1) = irreparabel, beides 1x/Tag"]
         }
     },
 
@@ -502,30 +499,43 @@ var r = null, //random factor
             r = roll(this.Eigenschaften.length - 1);
             var e = this.Eigenschaften[r];
             Vorteil = e;
-            if (e === "Spurenleser") {
-                Advantage = "Perception";
-            } else if (e === "Koch") {
-                Zusatzfaehigkeiten[Zusatzfaehigkeiten.length] = "Nahrungsverbrauch/Tag aller: 400g Essen, 0.75l Wasser";
-            } else if (e === "Jaeger") {
-                Zusatzfaehigkeiten[Zusatzfaehigkeiten.length] = "Essensplus/Tag: Erg(1d4) (>2: Erg(1d4) - 2)kg, =2: 0.5g";
-            } else if (e === "Einbrecher") {
-                Zusatzfaehigkeiten[Zusatzfaehigkeiten.length] = "Schloesser knacken";
-            } else if (e === "Ausdauernd") {
-                Zusatzfaehigkeiten[Zusatzfaehigkeiten.length] = "Lange Rast = 6h";
-            } else if (e === "Aufmerksam") {
-                PassiveWisdom += 2;
-            } else if (e === "Menschenkenner") {
-                Advantage = "Insight";
-            } else if (e === "Sportler") {
-                Advantage = "Athletics";
-            } else if (e === "Optimist") {
-                Moral += 1;
-            } else if (e === "Unerschrocken") {
-                Zusatzfaehigkeiten[Zusatzfaehigkeiten.length] = "Keine Panik wegen Walkern";
-            } else if (e === "Wandeln unter Walkern") {
-                Zusatzfaehigkeiten[Zusatzfaehigkeiten.length] = "Wandeln unter Walkern";
-            } else {
-                Zusatzfaehigkeiten[Zusatzfaehigkeiten.length] = "Heilung/Tag: Erg(1d6)";
+            switch(e) {
+                case "Spurenleser":
+                    Advantage = "Perception";
+                    break;
+                case "Koch":
+                    Zusatzfaehigkeiten[Zusatzfaehigkeiten.length] = "Nahrungsverbrauch/Tag aller: 400g Essen, 0.75l Wasser";
+                    break;
+                case "Jaeger":
+                    Zusatzfaehigkeiten[Zusatzfaehigkeiten.length] = "Essensplus/Tag: Erg(1d4) (>2: Erg(1d4) - 2)kg, =2: 0.5g";
+                    break;
+                case "Einbrecher":
+                    Zusatzfaehigkeiten[Zusatzfaehigkeiten.length] = "Schloesser knacken";
+                    break;
+                case "Ausdauernd":
+                    Zusatzfaehigkeiten[Zusatzfaehigkeiten.length] = "Lange Rast = 6h";
+                    break;
+                case "Aufmerksam":
+                    PassiveWisdom += 2;
+                    break;
+                case "Menschenkenner":
+                    Advantage = "Insight";
+                    break;
+                case "Sportler":
+                    Advantage = "Athletics";
+                    break;
+                case "Optimist":
+                    Moral += 1;
+                    break;
+                case "Unerschrocken":
+                    Zusatzfaehigkeiten[Zusatzfaehigkeiten.length] = "Keine Panik wegen Walkern";
+                    break;
+                case "Wandeln unter Walkern":
+                    Zusatzfaehigkeiten[Zusatzfaehigkeiten.length] = "Wandeln unter Walkern";
+                    break;
+                default:
+                    Zusatzfaehigkeiten[Zusatzfaehigkeiten.length] = "Heilung/Tag: Erg(1d6)";
+                    break;
             }
         },
         Eigenschaften: ["Spurenleser", "Koch", "Jaeger", "Einbrecher", "Ausdauernd", "Aufmerksam", "Menschenkenner", "Sportler", "Optimist", "Unerschrocken", "Wandeln unter Walkern", "Schnelle Selbstheilung"]
@@ -536,35 +546,42 @@ var r = null, //random factor
             r = roll(this.Eigenschaften.length - 1);
             var e = this.Eigenschaften[r];
             Nachteil = e;
-            if (e === "Alt") {
-                Disadvantage = "Strength";
-            } else if (e === "Kind") {
-                Zusatzfaehigkeiten[Zusatzfaehigkeiten.length] = "Keine Mitbestimmung";
-            } else if (e === "Nichtschwimmer") {
-                Zusatzfaehigkeiten[Zusatzfaehigkeiten.length] = "Kann nicht schwimmen";
-            } else if (e === "Waffenphob") {
-                r = roll(2);
-                if (r < 2) {
-                    Waffe[0] = "Schraubenzieher";
-                } else {
-                    Waffe[0] = "Messer";
-                }
-            } else if (e === "Langsam") {
-                Speed -= 10;
-            } else if (e === "Kann nicht autofahren") {
-                Zusatzfaehigkeiten[Zusatzfaehigkeiten.length] = "Kann nicht autofahren";
-            } else if (e === "Mangelerscheinungen") {
-                MaximalerHunger -= 2;
-            } else if (e === "Analphabet") {
-                Zusatzfaehigkeiten[Zusatzfaehigkeiten.length] = "Kann nicht lesen";
-            } else if (e === "Pessimist") {
-                MaximaleMoral -= 1;
-            } else if (e === "Junkie") {
-                MaximaleGesundheit = 80;
-            } else if (e === "Rassist") {
-                Zusatzfaehigkeiten[Zusatzfaehigkeiten.length] = "Keine Kooperation mit Personen, die anders sind als man selbst";
-            } else {
-                Zusatzfaehigkeiten[Zusatzfaehigkeiten.length] = "Ist kleptomanisch";
+            switch(e) {
+                case "Alt":
+                    Disadvantage = "Strength";
+                    break;
+                case "Kind":
+                    Zusatzfaehigkeiten[Zusatzfaehigkeiten.length] = "Keine Mitbestimmung";
+                    break;
+                case "Nichtschwimmer":
+                    Zusatzfaehigkeiten[Zusatzfaehigkeiten.length] = "Kann nicht schwimmen";
+                    break;
+                case "Waffenphob":
+                    r = roll(2);
+                    if (r < 2) Waffe[0] = "Schraubenzieher";
+                    else Waffe[0] = "Messer";
+                    break;
+                case "Langsam":
+                    Speed -= 10;
+                    break;
+                case "Mangelerscheinungen":
+                    MaximalerHunger -= 2;
+                    break;
+                case "Analphabet":
+                    Zusatzfaehigkeiten[Zusatzfaehigkeiten.length] = "Kann nicht lesen";
+                    break;
+                case "Pessimist":
+                    MaximaleMoral -= 1;
+                    break;
+                case "Junkie":
+                    MaximaleGesundheit = 80;
+                    break;
+                case "Rassist":
+                    Zusatzfaehigkeiten[Zusatzfaehigkeiten.length] = "Keine Kooperation mit Personen, die anders sind als man selbst";
+                    break;
+                default:
+                    Zusatzfaehigkeiten[Zusatzfaehigkeiten.length] = "Ist kleptomanisch";
+                    break;
             }
         },
         Eigenschaften: ["Kind", "Alt", "Waffenphob", "Nichtschwimmer", "Langsam", "Kann nicht autofahren", "Analphabet", "Mangelerscheinungen", "Junkie", "Rassist", "Kleptomane", "Pessimist"]

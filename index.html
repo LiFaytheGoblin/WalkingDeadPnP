@@ -9,6 +9,15 @@
 </head>
 
 <body>
+    <!-- example for an element that is listened to by js
+    <form>
+        <select id="x">
+            <option value="one" selected>one</option>
+            <option value="two">two</option>
+        </select>
+    </form>
+    -->
+    
     <header>
         <h1>THE WALKING DEAD P&amp;P</h1>
         <h2>Character Sheet Creator</h2>
@@ -43,7 +52,7 @@
               <div class="r3">
                   <div class="Feld">
                       <h3>Hintergrund</h3>
-                      <select id="Hintergruende">
+                      <select id="Hintergruende" onchange="updateAll()">
                       </select>
                   </div>
 
