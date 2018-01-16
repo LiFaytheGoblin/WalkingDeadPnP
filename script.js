@@ -303,7 +303,6 @@ var r = null, //random factor
     Rang],
 
 
-
     HintergrundAuswahl = {
         Army: {
             //add dropdown for rank
