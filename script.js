@@ -3,15 +3,7 @@
 window.onload = function () {
     setValues();
     updateScreen();
-    //createListeners();
-    
-    /* example for a listener
-    var s = document.getElementById("x");
-    s.addEventListener("change", function() {
-        x = s.value;
-        console.log(x);
-    }, false);
-    */
+    createListeners();
 };
 
 var x = "one";
@@ -63,21 +55,19 @@ function updateScreen() {
 
 function createListeners() {
     var fields = document.getElementsByTagName("select");
-    for (var i = 0; i < fields.length; i++) {
-        fields[i].addEventListener("change",updateAll(Event));
+    var choice;
+    for (var fieldNo = 0; fieldNo < fields.length; fieldNo++) {
+        console.log("THE CHOICE" + fields[fieldNo]);
+        fields[fieldNo].addEventListener("change", function(e) {
+            console.log(e.currentTarget.value);
+            console.log(HintergrundAuswahl.Army);
+        }, false);
     }
 }
 
 function updateAll(e) {
-    console.log(e);
-    safeNewValue(e);
     setValues();
     updateScreen();
-}
-
-function safeNewValue(e) {
-    //read this value
-
 }
 
 function clearValues() {
