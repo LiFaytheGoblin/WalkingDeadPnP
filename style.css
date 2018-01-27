@@ -13,31 +13,32 @@ body {
 }
 
 header {
-  text-align: center;
+    text-align: center;
 }
 
 h1 {
-  font-size: 200%;
-  margin-top: 8%;
+    font-size: 200%;
+    margin-top: 8%;
 }
 
 h2 {
-  font-size: 120%;
-  margin-bottom: 8%;
+    font-size: 120%;
+    margin-bottom: 8%;
 }
 
 h3 {
-  font-size: 100%;
-  color: #eeddaa;
+    font-size: 100%;
+    color: #eeddaa;
 }
 
-section, form {
-  width:100%;
-  display: block;
+section,
+form {
+    width: 100%;
+    display: block;
 }
 
 section {
-  border: 0.5px dotted #efefef;
+    border: 0.5px dotted #efefef;
 }
 
 fieldset {
@@ -45,56 +46,62 @@ fieldset {
     border: 0;
 }
 
-.Feld > h3, .Feld > h4 {
-  margin-top: 1%;
-  font-size: 90%;
-  color: #ffbb33;
+.Feld > h3,
+.Feld > h4 {
+    margin-top: 1%;
+    font-size: 90%;
+    color: #ffbb33;
 }
 
 div.Feld {
-  background-color: #ffeecc;
-  position: static;
-  box-shadow: 0 2px 4px 0 #eeddaa;
-  margin: 5px;
-  padding: 2%;
+    background-color: #ffeecc;
+    position: static;
+    box-shadow: 0 2px 4px 0 #eeddaa;
+    margin: 5px;
+    padding: 2%;
 }
 
-.r2, .r3, .r4, .r5, .r6, .r8 {
-  display: grid;
-  flex-direction: row;
-  align-items: center;
-  height: 100%;
+.r2,
+.r3,
+.r4,
+.r5,
+.r6,
+.r8 {
+    display: grid;
+    flex-direction: row;
+    align-items: center;
+    height: 100%;
 }
 
 div.r2 {
-  grid-template-columns: repeat(auto-fill, 50%);
+    grid-template-columns: repeat(auto-fill, 50%);
 }
 
 div.r3 {
-  grid-template-columns: repeat(auto-fill, 33%);
+    grid-template-columns: repeat(auto-fill, 33%);
 }
 
 div.r4 {
-  grid-template-columns: repeat(auto-fill, 25%);
+    grid-template-columns: repeat(auto-fill, 25%);
 }
 
 div.r5 {
-  grid-template-columns: repeat(auto-fill, 20%);
+    grid-template-columns: repeat(auto-fill, 20%);
 }
 
 div.r6 {
-  grid-template-columns: repeat(auto-fill, 16.6%);
+    grid-template-columns: repeat(auto-fill, 16.6%);
 }
 
 div.r8 {
-  grid-template-columns: repeat(auto-fill, 12.5%);
+    grid-template-columns: repeat(auto-fill, 12.5%);
 }
 
 input,
 select,
 textarea {
-    color:#777;
-    border:0;
+    color: #777;
+    border: 0;
 
     -moz-appearance: none;
     -webkit-appearance: none;
@@ -116,38 +123,42 @@ input[type="number"] {
 }
 
 input[name*=Mod] {
-    width:1.4em;
+    width: 1.4em;
     line-height: 1.4em;
     border-radius: 0.7em;
     -moz-border-radius: 0.1em;
     -webkit-border-radius: 0.1em;
     border: 1px solid rgba(15, 13, 11, .99);
-    text-align:center;
+    text-align: center;
     overflow: hidden;
     padding: 0;
-    float:right;
+    float: right;
 }
 
 
-input[readonly]:not([name*=Mod]), textarea[readonly] {
-    border:0;
+input[readonly]:not([name*=Mod]),
+textarea[readonly] {
+    border: 0;
     cursor: not-allowed;
 }
 
 input:not([readonly]):hover {
-  cursor: text;
+    cursor: text;
 }
 
-input[name*=oral], input[name*=Gesundheit], input[name*=Hunger], input[name*=Durst] {
-  width: 30%;
+input[name*=oral],
+input[name*=Gesundheit],
+input[name*=Hunger],
+input[name*=Durst] {
+    width: 30%;
 }
 
 select:not([readonly]):hover {
-   cursor: context-menu;
+    cursor: context-menu;
 }
 
 footer {
-  font-size: 50%;
-  color: #cdcdcd;
-  margin: 3%;
+    font-size: 50%;
+    color: #cdcdcd;
+    margin: 3%;
 }

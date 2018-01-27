@@ -4,7 +4,7 @@ window.onload = function () {
     setValues();
     updateScreen();
     createListenersForCalculatingSelects();
-    
+
     //createListenersForAbilityScores(); //store new abilityscore value, recalculate skills
     //createListenersForIndifferentValues();, //name, age, hand
     //other TODO: make code secure!
@@ -22,33 +22,33 @@ function setValues() {
 
 function updateScreen() {
 
-  var dropdownsToUpdateFromArrayOfStrings = [
+    var dropdownsToUpdateFromArrayOfStrings = [
     "Klassen", "Hintergruende", "Raenge", "HierarchischAlignments",
     "SozialAlignments", "MoralAlignments", "Haende"
   ];
 
-  var screenValuesToUpdate = [
+    var screenValuesToUpdate = [
     "Speed", "Vorteil", "Advantage", "Nachteil", "Disadvantage", "Moral", "MaximaleMoral",
     "Gesundheit", "MaximaleGesundheit", "PhysicalResistance", "MentalResistance",
     "Hunger", "MaximalerHunger", "Durst", "MaximalerDurst", "ProficiencyBonus",
     "PassiveWisdom", "Sprache"
   ];
 
-  var screenValuesToUpdateFromArrayOfStrings = [
+    var screenValuesToUpdateFromArrayOfStrings = [
     "Waffe", "Item", "Zusatzfaehigkeiten"
   ];
 
-  for (var dropdownNo in dropdownsToUpdateFromArrayOfStrings) {
-    updateDropdownFromArrayOfStrings(dropdownsToUpdateFromArrayOfStrings[dropdownNo]);
-  }
+    for (var dropdownNo in dropdownsToUpdateFromArrayOfStrings) {
+        updateDropdownFromArrayOfStrings(dropdownsToUpdateFromArrayOfStrings[dropdownNo]);
+    }
 
-  for (var valueNo in screenValuesToUpdate) {
-    updateScreenValue(screenValuesToUpdate[valueNo]);
-  }
+    for (var valueNo in screenValuesToUpdate) {
+        updateScreenValue(screenValuesToUpdate[valueNo]);
+    }
 
-  for (var valueFromArrayNo in screenValuesToUpdateFromArrayOfStrings) {
-    updateScreenValueFromArrayOfStrings(screenValuesToUpdateFromArrayOfStrings[valueFromArrayNo]);
-  }
+    for (var valueFromArrayNo in screenValuesToUpdateFromArrayOfStrings) {
+        updateScreenValueFromArrayOfStrings(screenValuesToUpdateFromArrayOfStrings[valueFromArrayNo]);
+    }
 
     updateAbilityScores();
     updateSkills();
@@ -58,7 +58,7 @@ function updateScreen() {
 function createListenersForCalculatingSelects() {
     var fields = document.getElementsByClassName("userdef");
     for (var fieldNo = 0; fieldNo < fields.length; fieldNo++) {
-        fields[fieldNo].addEventListener("change", function(e) {
+        fields[fieldNo].addEventListener("change", function (e) {
             updateCalculatingValueFromScreen(e.target.id, e.currentTarget.value); //ID, Value
         }, false);
     }
@@ -66,22 +66,22 @@ function createListenersForCalculatingSelects() {
 
 function updateCalculatingValueFromScreen(valName, val) {
     window[valName][1] = val;
-    
+
     // TODO: so far no difference between h-rang and k-rang! what if both have rang/specialization? no select for that! no difference in code made!
-    if(valName == "Raenge") {
+    if (valName == "Raenge") {
         HintergrundAuswahl[Hintergruende[1]].Rang = val;
     }
     //if(valName == "K-Raenge) {
     //  KlassenAuswahl[Klassen[1]].Rang = val;
     //}
-    if(valName == "Hintergruende") {
+    if (valName == "Hintergruende") {
         HintergrundAuswahl[val].setVars();
         //updateDropdownFromArrayOfStrings("Raenge");
-    } else if(valName == "Klassen") {
+    } else if (valName == "Klassen") {
         KlasseAuswahl[val].setVars;
         //updateDropdownFromArrayOfStrings("K-Raenge");
     }
-    
+
     //TODO: Fix Problem that it ADDS UP VALUES INSTEAD OF REPLACING THEM
     //TODO: Fix Problem that afte once h has raenge, when changing to another h, the raenge don't disappear
     updateScreen();
@@ -112,26 +112,26 @@ function updateScreenValueFromArrayOfStrings(val) {
 
 function updateDropdownFromArrayOfStrings(val) {
     var src = window[val][0];
-    
+
     if (src.length === 0) return;
     var elem = document.getElementById(val);
     for (var i = 0; i < src.length; i++) {
         elem[i] = new Option(src[i]);
         if (src[i] === window[val][1]) elem[i].selected = true;
     }
-   elem.value = window[val][1];
+    elem.value = window[val][1];
     console.log(elem);
 }
 
 function updateAbilityScores() {
-    for(var key in AbilityScores) {
+    for (var key in AbilityScores) {
         document.getElementById(key).value = AbilityScores[key][0];
         document.getElementById(key + "Mod").value = AbilityScores[key][1];
     }
 }
 
 function calculateAbilityScoreMods() {
-    for(var key in AbilityScores) {
+    for (var key in AbilityScores) {
         var score = AbilityScores[key][0];
         AbilityScores[key][1] = Math.floor((score - 10) / 2);
     }
@@ -139,14 +139,14 @@ function calculateAbilityScoreMods() {
 }
 
 function updateSkills() {
-    for(var key in Skill) {
+    for (var key in Skill) {
         document.getElementById(key).value = Skill[key];
     }
 }
 
 function calculateSkills() {
-    for(var ability in Skills) {
-        for(var skill in Skills[ability]) {
+    for (var ability in Skills) {
+        for (var skill in Skills[ability]) {
             Skill[Skills[ability][skill]] += AbilityScores[ability][1];
         }
     }
@@ -187,12 +187,12 @@ function m() {
 }
 
 function hi() {
-    var r = roll(Hintergruende[0].length-1);
+    var r = roll(Hintergruende[0].length - 1);
     return Hintergruende[0][r];
 }
 
 function kl() {
-    var r = roll(Klassen[0].length-1);
+    var r = roll(Klassen[0].length - 1);
     return Klassen[0][r];
 }
 
@@ -287,7 +287,7 @@ var r = null, //random factor
         wisdom: ["insight", "medicine", "perception", "survival"]
     },
 
-    Hintergruende = [["Army", "Einwanderer", "Geistlicher", "Gesetzeshueter", "Hillbilly", "Intellektueller", "vermoegend"],""],
+    Hintergruende = [["Army", "Einwanderer", "Geistlicher", "Gesetzeshueter", "Hillbilly", "Intellektueller", "vermoegend"], ""],
 
     Klassen = [["Fuehrungspersoenlichkeit", "Heiler", "Kaempfer", "Prediger", "Schuetze", "Techniker"],
     ""],
@@ -295,20 +295,20 @@ var r = null, //random factor
     Hintergrund = hi(),
     Klasse = kl();
 
-    Klassen[1] = Klasse;
-    Hintergruende[1] = Hintergrund;
+Klassen[1] = Klasse;
+Hintergruende[1] = Hintergrund;
 
-    var Raenge = [[],
+var Raenge = [[],
     Rang],
 
 
     HintergrundAuswahl = {
-        defaultRang: function() {
+        defaultRang: function () {
             Rang = "Kein Rang";
             Raenge[0] = [];
             Raenge[1] = Rang;
         },
-        
+
         Army: {
             setVars: function () {
                 if (Rang !== "") Rang += ", ";
@@ -432,12 +432,12 @@ var r = null, //random factor
     },
 
     KlasseAuswahl = {
-        setFaehigkeiten: function(dieseKlasse) {
+        setFaehigkeiten: function (dieseKlasse) {
             for (var faehigkeit in dieseKlasse) {
-                    Zusatzfaehigkeiten[Zusatzfaehigkeiten.length] = dieseKlasse[faehigkeit];
+                Zusatzfaehigkeiten[Zusatzfaehigkeiten.length] = dieseKlasse[faehigkeit];
             }
         },
-        
+
         Heiler: {
             setVars: function () {
                 KlasseAuswahl.setFaehigkeiten(this);
@@ -498,7 +498,7 @@ var r = null, //random factor
                 Raenge[0] = this.Raenge;
                 Raenge[1] = Rang;
                 KlasseAuswahl.setFaehigkeiten(this);
-                
+
                 if (this.Rang === "Schwermechaniker") {
                     PhysicalResistance += 5;
                     MentalResistance += 4;
@@ -520,7 +520,7 @@ var r = null, //random factor
             r = roll(this.Eigenschaften.length - 1);
             var e = this.Eigenschaften[r];
             Vorteil = e;
-            switch(e) {
+            switch (e) {
                 case "Spurenleser":
                     Advantage = "Perception";
                     break;
@@ -567,7 +567,7 @@ var r = null, //random factor
             r = roll(this.Eigenschaften.length - 1);
             var e = this.Eigenschaften[r];
             Nachteil = e;
-            switch(e) {
+            switch (e) {
                 case "Alt":
                     Disadvantage = "Strength";
                     break;
