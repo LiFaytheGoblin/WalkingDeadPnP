@@ -3,6 +3,7 @@
     font-size: 16px;
     line-height: 1.2em;
     font-family: sans-serif;
+    text-align: center;
 }
 
 body {
@@ -13,6 +14,21 @@ body {
 
 header {
   text-align: center;
+}
+
+h1 {
+  font-size: 200%;
+  margin-top: 8%;
+}
+
+h2 {
+  font-size: 120%;
+  margin-bottom: 8%;
+}
+
+h3 {
+  font-size: 100%;
+  color: #eeddaa;
 }
 
 section, form {
@@ -29,9 +45,9 @@ fieldset {
     border: 0;
 }
 
-.Feld > h3, .Feld > h4, .Feld > h5 {
+.Feld > h3, .Feld > h4 {
   margin-top: 1%;
-  font-size: 80%;
+  font-size: 90%;
   color: #ffbb33;
 }
 
@@ -39,7 +55,7 @@ div.Feld {
   background-color: #ffeecc;
   position: static;
   box-shadow: 0 2px 4px 0 #eeddaa;
-  margin: 2%;
+  margin: 5px;
   padding: 2%;
 }
 
@@ -47,6 +63,7 @@ div.Feld {
   display: grid;
   flex-direction: row;
   align-items: center;
+  height: 100%;
 }
 
 div.r2 {
@@ -90,6 +107,8 @@ textarea {
     overflow: hidden;
     width: 100%;
     height: 100%;
+
+    display: inline-block;
 }
 
 input[type="number"] {
@@ -98,10 +117,17 @@ input[type="number"] {
 
 input[name*=Mod] {
     width:1.4em;
-    height:1.4em;
-    border-radius: 50%;
-    border: 1px solid #998877;
+    line-height: 1.4em;
+    border-radius: 0.7em;
+    -moz-border-radius: 0.1em;
+    -webkit-border-radius: 0.1em;
+    border: 1px solid rgba(15, 13, 11, .99);
+    text-align:center;
+    overflow: hidden;
+    padding: 0;
+    float:right;
 }
+
 
 input[readonly]:not([name*=Mod]), textarea[readonly] {
     border:0;
@@ -112,6 +138,16 @@ input:not([readonly]):hover {
   cursor: text;
 }
 
+input[name*=oral], input[name*=Gesundheit], input[name*=Hunger], input[name*=Durst] {
+  width: 30%;
+}
+
 select:not([readonly]):hover {
    cursor: context-menu;
+}
+
+footer {
+  font-size: 50%;
+  color: #cdcdcd;
+  margin: 3%;
 }
