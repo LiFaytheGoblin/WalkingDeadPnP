@@ -3,10 +3,12 @@
 window.onload = function () {
     setValues();
     updateScreen();
-    createListeners();
+    createListenersForCalculatingSelects();
+    
+    //createListenersForAbilityScores(); //store new abilityscore value, recalculate skills
+    //createListenersForIndifferentValues();, //name, age, hand
+    //other TODO: make code secure!
 };
-
-var x = "one";
 
 function setValues() {
     clearValues();
@@ -53,20 +55,35 @@ function updateScreen() {
 
 }
 
-function createListeners() {
-    var fields = document.getElementsByTagName("select");
-    var choice;
+function createListenersForCalculatingSelects() {
+    var fields = document.getElementsByClassName("userdef");
     for (var fieldNo = 0; fieldNo < fields.length; fieldNo++) {
-        console.log("THE CHOICE" + fields[fieldNo]);
         fields[fieldNo].addEventListener("change", function(e) {
-            console.log(e.currentTarget.value);
-            console.log(HintergrundAuswahl.Army);
+            updateCalculatingValueFromScreen(e.target.id, e.currentTarget.value); //ID, Value
         }, false);
     }
 }
 
-function updateAll(e) {
-    setValues();
+function updateCalculatingValueFromScreen(valName, val) {
+    window[valName][1] = val;
+    
+    // TODO: so far no difference between h-rang and k-rang! what if both have rang/specialization? no select for that! no difference in code made!
+    if(valName == "Raenge") {
+        HintergrundAuswahl[Hintergruende[1]].Rang = val;
+    }
+    //if(valName == "K-Raenge) {
+    //  KlassenAuswahl[Klassen[1]].Rang = val;
+    //}
+    if(valName == "Hintergruende") {
+        HintergrundAuswahl[val].setVars();
+        //updateDropdownFromArrayOfStrings("Raenge");
+    } else if(valName == "Klassen") {
+        KlasseAuswahl[val].setVars;
+        //updateDropdownFromArrayOfStrings("K-Raenge");
+    }
+    
+    //TODO: Fix Problem that it ADDS UP VALUES INSTEAD OF REPLACING THEM
+    //TODO: Fix Problem that afte once h has raenge, when changing to another h, the raenge don't disappear
     updateScreen();
 }
 
@@ -95,6 +112,7 @@ function updateScreenValueFromArrayOfStrings(val) {
 
 function updateDropdownFromArrayOfStrings(val) {
     var src = window[val][0];
+    
     if (src.length === 0) return;
     var elem = document.getElementById(val);
     for (var i = 0; i < src.length; i++) {
@@ -102,6 +120,7 @@ function updateDropdownFromArrayOfStrings(val) {
         if (src[i] === window[val][1]) elem[i].selected = true;
     }
    elem.value = window[val][1];
+    console.log(elem);
 }
 
 function updateAbilityScores() {
@@ -284,12 +303,18 @@ var r = null, //random factor
 
 
     HintergrundAuswahl = {
+        defaultRang: function() {
+            Rang = "Kein Rang";
+            Raenge[0] = [];
+            Raenge[1] = Rang;
+        },
+        
         Army: {
-            //add dropdown for rank
             setVars: function () {
                 if (Rang !== "") Rang += ", ";
                 Rang = this.Rang;
                 Raenge[0] = this.Raenge;
+                console.log("Raenge set to " + Raenge);
                 Raenge[1] = Rang;
                 AbilityScores.charisma[0] -= 3;
                 AbilityScores.constitution[0] += 2;
@@ -313,6 +338,7 @@ var r = null, //random factor
 
         Einwanderer: {
             setVars: function () {
+                HintergrundAuswahl.defaultRang();
                 AbilityScores.charisma[0] -= 1;
                 AbilityScores.constitution[0] += 2;
                 AbilityScores.strength[0] += 1;
@@ -326,6 +352,7 @@ var r = null, //random factor
 
         Geistlicher: {
             setVars: function () {
+                HintergrundAuswahl.defaultRang();
                 AbilityScores.charisma[0] += 2;
                 AbilityScores.strength[0] -= 2;
                 AbilityScores.wisdom[0] += 2;
@@ -339,6 +366,7 @@ var r = null, //random factor
 
         Gesetzeshueter: {
             setVars: function () {
+                HintergrundAuswahl.defaultRang();
                 AbilityScores.constitution[0] -= 1;
                 AbilityScores.strength[0] += 1;
                 AbilityScores.wisdom[0] += 2;
@@ -357,6 +385,7 @@ var r = null, //random factor
 
         Hillbilly: {
             setVars: function () {
+                HintergrundAuswahl.defaultRang();
                 AbilityScores.charisma[0] -= 1;
                 AbilityScores.dexterity[0] += 3;
                 AbilityScores.intelligence[0] -= 2;
@@ -374,6 +403,7 @@ var r = null, //random factor
 
         Intellektueller: {
             setVars: function () {
+                HintergrundAuswahl.defaultRang();
                 AbilityScores.constitution[0] -= 2;
                 AbilityScores.intelligence[0] += 4;
                 AbilityScores.strength[0] -= 1;
@@ -388,6 +418,7 @@ var r = null, //random factor
 
         vermoegend: {
             setVars: function () {
+                HintergrundAuswahl.defaultRang();
                 AbilityScores.charisma[0] += 2;
                 AbilityScores.constitution[0] += 2;
                 AbilityScores.dexterity[0] -= 1;
